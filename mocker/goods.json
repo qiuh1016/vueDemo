@@ -1,0 +1,72 @@
+{
+  "status": "0",
+  "msg": "",
+  "result": [
+    {
+      "productId": "100001",
+      "productName": "蓝牙音箱",
+      "productPrice": 199,
+      "productImg": "1.jpg"
+    },
+    {
+      "productId": "100002",
+      "productName": "蓝牙耳机",
+      "productPrice": 129,
+      "productImg": "2.jpg"
+    },
+    {
+      "productId": "100003",
+      "productName": "红色耳机",
+      "productPrice": 499,
+      "productImg": "3.jpg"
+    },
+    {
+      "productId": "100004",
+      "productName": "骨传音耳机",
+      "productPrice": 799,
+      "productImg": "4.jpg"
+    },
+    {
+      "productId": "100005",
+      "productName": "Letv路由器",
+      "productPrice": 599,
+      "productImg": "5.jpg"
+    },
+    {
+      "productId": "100006",
+      "productName": "小米插座",
+      "productPrice": 99,
+      "productImg": "6.jpg"
+    },
+    {
+      "productId": "100007",
+      "productName": "运动耳机",
+      "productPrice": 79,
+      "productImg": "7.jpg"
+    },
+    {
+      "productId": "100008",
+      "productName": "空气净化器",
+      "productPrice": 1299,
+      "productImg": "8.jpg"
+    },
+    {
+      "productId": "100009",
+      "productName": "电饭锅",
+      "productPrice": 599,
+      "productImg": "9.jpg"
+    },
+    {
+      "productId": "100010",
+      "productName": "55寸电视",
+      "productPrice": 3499,
+      "productImg": "10.jpg"
+    },
+    {
+      "productId": "100015",
+      "productName": "TypeC数据线",
+      "productPrice": 39,
+      "productImg": "15.jpg"
+    }
+  ]
+}
