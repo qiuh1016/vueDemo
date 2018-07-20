@@ -43,11 +43,16 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     watchOptions: {
       poll: config.dev.poll,
     },
-    before(app) {
-      app.get('/api/goods', function (req, res) {
-        res.json(require('../mocker/goods.json'))
-      })
-    },
+    // before(app) {
+    //   app.get('/api/goods', function (req, res) {
+    //     res.json(require('../mocker/goods.json'))
+    //   })
+    //   app.post('/api/login', function (req, res) {
+    //     res.json({
+    //       code: 1,
+    //       msg: '登陆成功'
+    //     })
+    // },
   },
   plugins: [
     new webpack.DefinePlugin({

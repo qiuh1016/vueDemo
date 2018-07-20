@@ -25,14 +25,15 @@
         <!-- START 商品展示 -->
         <div class="col-md-9">
           <div class="row">
-            <div class="card col-md-4" style="width: 18rem;"
-            v-for="(item) in goodsList" :key="item.productId">
+            <div class="thumbnail col-md-4" v-for="(item) in goodsList" :key="item.productId">
               <img class="card-img-top" v-lazy="'/static/'+item.productImg"
-              alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title">{{item.productName}}</h5>
-                <p class="card-text">{{item.productPrice}}元</p>
-                <a href="#" class="btn btn-outline-danger float-right">加入购物车</a>
+                  alt="Card image cap" style="width:220px; height:220px;">
+              <div class="caption">
+                <h3>{{item.productName}}</h3>
+                <p>{{item.productPrice}}元</p>
+                <p>
+                  <a href="#" class="btn btn-warning" role="button">加入购物车</a>
+                </p>
               </div>
             </div>
           </div>
