@@ -31,7 +31,8 @@
                 <h3>{{item.productName}}</h3>
                 <p>{{item.productPrice}}元</p>
                 <p>
-                  <a href="#" class="btn btn-warning" role="button">加入购物车</a>
+                  <a href="#" class="btn btn-warning" role="button"
+                  @click="addCart(item.productId)">加入购物车</a>
                 </p>
               </div>
             </div>
@@ -82,6 +83,18 @@ export default {
     getGoodsList() {
       axios.get('/api/goods').then((res) => {
         this.goodsList = res.data.result;
+      });
+    },
+    addCart(productId) {
+      axios.post('/api/addCart', { productId }).then((result) => {
+        const res = result.data;
+        if (res.code === 1) {
+          // eslint-disable-next-line
+          alert('添加成功');
+        } else {
+          // eslint-disable-next-line
+          alert('未登陆');
+        }
       });
     },
   },

@@ -101,13 +101,16 @@ export default {
     };
   },
   mounted() {
+    this.checkLogin();
   },
   methods: {
     showLogin() {
       if (this.logined) {
         // todo： 退出
         this.logined = false;
+        this.username = '';
         $('#loginBtn').html('Login');
+        this.logout();
       } else {
         $('#myModal').modal('show');
       }
@@ -130,6 +133,19 @@ export default {
           this.loginTip = '';
         } else {
           this.loginTip = res.msg;
+        }
+      });
+    },
+    logout() {
+      axois.post('/api/logout');
+    },
+    checkLogin() {
+      axois.get('/api/checkLogin').then((result) => {
+        const res = result.data;
+        if (res.code === 1) {
+          this.username = res.username;
+          $('#loginBtn').html(res.username);
+          this.logined = true;
         }
       });
     },

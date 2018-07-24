@@ -5,6 +5,8 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const session = require('koa-session2');
+const Store = require('./middlewares/store');
 
 const index = require('./routes/index')
 const users = require('./routes/users')
@@ -14,7 +16,7 @@ onerror(app)
 
 // middlewares
 app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
+  enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
 app.use(logger())
@@ -29,6 +31,12 @@ app.use(require('koa-static')(__dirname + '/../dist'))
 app.use(views(__dirname + '/../dist', {
   extension: 'html'
 }))
+
+// session
+app.use(session({
+  maxAge: 86400000,
+  store: new Store(),
+}));
 
 // logger
 app.use(async (ctx, next) => {

@@ -18,21 +18,23 @@
       <tbody>
         <tr v-for="(item, index) in cartList" :key="index">
           <td><input type="checkbox"/></td>
-          <td style="width: 110px;"><img class="cart" v-lazy="'/static/'+item.productImage"/></td>
+          <td style="width: 110px;"><img class="cart" v-lazy="'/static/'+item.productImg"/></td>
           <td>{{item.productName}}</td>
-          <td>{{item.price}}</td>
+          <td>{{item.productPrice}}元</td>
           <td>
-            <button class="btn btn-primary">
+            <a href="javascript:void(0)" @click="minus(index)">
               <span class="glyphicon glyphicon-minus" aria-hidden="true"/>
-            </button>
+            </a>
             {{item.count}}
-            <button class="btn btn-primary">
+            <a href="javascript:void(0)" @click="plus(index)">
               <span class="glyphicon glyphicon-plus" aria-hidden="true"/>
-            </button>
+            </a>
           </td>
-          <td>{{item.price * item.count}}</td>
+          <td>{{item.productPrice * item.count}}元</td>
           <td>
-            <a href="#/cart"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            <a href="javascript:void(0)" @click="deleteCart(index)">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </a>
           </td>
         </tr>
       </tbody>
@@ -59,8 +61,28 @@ export default {
   methods: {
     getCart() {
       axios.get('/api/cart').then((result) => {
-        this.cartList = result.data;
+        const res = result.data;
+        if (res.code === 1) {
+          this.cartList = res.cart;
+        } else {
+          // eslint-disable-next-line
+          alert('未登陆');
+        }
       });
+    },
+    plus(index) {
+      this.cartList[index].count += 1;
+      axios.post('/api/updateCartCount', { i: index, count: this.cartList[index].count });
+    },
+    minus(index) {
+      if (this.cartList[index].count > 1) {
+        this.cartList[index].count -= 1;
+        axios.post('/api/updateCartCount', { i: index, count: this.cartList[index].count });
+      }
+    },
+    deleteCart(index) {
+      this.cartList.splice(index, 1);
+      axios.post('/api/deleteCart', { i: index });
     },
   },
 };
