@@ -38,7 +38,11 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form> -->
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#" @click="showLogin" id="loginBtn">Login</a></li>
+          <li>
+            <a href="#" @click="showLogin">
+            {{username == '' ? 'Login' : username}}
+            </a>
+          </li>
           <li>
             <a href="#/cart">
               <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
@@ -93,10 +97,8 @@ export default {
   name: 'NavHeader',
   data() {
     return {
-      tag: '',
       username: '',
       psw: '',
-      logined: false,
       loginTip: '',
     };
   },
@@ -105,11 +107,8 @@ export default {
   },
   methods: {
     showLogin() {
-      if (this.logined) {
-        // todo： 退出
-        this.logined = false;
+      if (this.username !== '') {
         this.username = '';
-        $('#loginBtn').html('Login');
         this.logout();
       } else {
         $('#myModal').modal('show');
@@ -128,8 +127,6 @@ export default {
         const res = result.data;
         if (res.code === 1) {
           $('#myModal').modal('hide');
-          this.logined = true;
-          $('#loginBtn').html(this.username);
           this.loginTip = '';
         } else {
           this.loginTip = res.msg;
@@ -144,8 +141,6 @@ export default {
         const res = result.data;
         if (res.code === 1) {
           this.username = res.username;
-          $('#loginBtn').html(res.username);
-          this.logined = true;
         }
       });
     },
