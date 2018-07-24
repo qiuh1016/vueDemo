@@ -1,0 +1,16 @@
+[
+  {
+    "productId": "100001",
+    "productName": "蓝牙音箱",
+    "price": 199,
+    "count": 3,
+    "productImage": "1.jpg"
+  },
+  {
+    "productId": "100002",
+    "productName": "蓝牙耳机",
+    "price": 129,
+    "count": 1,
+    "productImage": "2.jpg"
+  }
+]

@@ -10,7 +10,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Brand</a>
+        <a class="navbar-brand" href="#/">Brand</a>
       </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -40,7 +40,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#" @click="showLogin" id="loginBtn">Login</a></li>
           <li>
-            <a href="#">
+            <a href="#/cart">
               <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
             </a>
           </li>
@@ -66,7 +66,8 @@
               </div>
               <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" placeholder="Password" v-model="psw">
+                <input type="password" class="form-control" placeholder="Password" v-model="psw"
+                @keyup.enter="login">
               </div>
               <div class="checkbox">
                 <label>

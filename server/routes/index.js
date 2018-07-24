@@ -1,4 +1,5 @@
 const router = require('koa-router')()
+const User = require('../db/mongo/model').User;
 
 router.get('/', async (ctx, next) => {
   await ctx.render('index')
@@ -26,4 +27,31 @@ router.post('/api/login', (ctx, next) => {
     }
   }
 })
+
+router.get('/api/cart', async (ctx, next) => {
+  ctx.body = require('../../mocker/cart.json');
+})
+
+router.get('/api/adduser', async (ctx, next) => {
+  let username = ctx.query.username;
+  let psw = ctx.query.psw;
+  let user = new User({
+    username,
+    psw
+  });
+  let data = await user.save();
+  ctx.body = data;
+})
+
+router.get('/user/:username', async (ctx, next) => {
+  let username = ctx.params.username;
+  try {
+    let user = await User.findOne({ username }).exec();
+    ctx.body = user;
+  } catch (error) {
+    ctx.body = error;
+    console.log(error);
+  }
+})
+
 module.exports = router

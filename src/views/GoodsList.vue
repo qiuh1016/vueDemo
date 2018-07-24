@@ -1,8 +1,7 @@
 <template>
   <div>
-    <nav-header></nav-header>
+    <!-- <nav-header></nav-header> -->
     <nav-bread>
-      <li class="breadcrumb-item active" aria-current="page">Library</li>
     </nav-bread>
     <div class="container">
       <div class="row">
@@ -41,7 +40,7 @@
         <!-- END 商品展示 -->
       </div>
     </div>
-    <nav-footer></nav-footer>
+    <!-- <nav-footer></nav-footer> -->
   </div>
 </template>
 <script>
