@@ -2,12 +2,15 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
+import 'element-ui/lib/theme-chalk/index.css';
 import Vue from 'vue';
 import VueLazyload from 'vue-lazyload';
 import VueResource from 'vue-resource';
+import ElementUI from 'element-ui';
 import App from './App';
 import router from './router';
 
+Vue.use(ElementUI);
 Vue.use(VueResource);
 Vue.use(VueLazyload, {
   loading: '/static/loading-svg/loading-bubbles.svg',

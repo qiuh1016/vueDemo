@@ -38,15 +38,29 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form> -->
         <ul class="nav navbar-nav navbar-right">
-          <li>
-            <a href="#" @click="showLogin">
-            {{username == '' ? 'Login' : username}}
-            </a>
-          </li>
-          <li>
+          <li v-if="username !== ''">
             <a href="#/cart">
               <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
             </a>
+          </li>
+          <li class="dropdown" v-if="username !== ''">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
+            role="button" aria-haspopup="true" aria-expanded="false">
+            {{username}}<span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="javascript:void(0);" @click="logout()">退出</a></li>
+            </ul>
+          </li>
+          <!-- 登陆按钮 -->
+          <li v-else>
+            <a href="#" @click="showLogin">Login</a>
           </li>
         </ul>
       </div>
@@ -108,7 +122,6 @@ export default {
   methods: {
     showLogin() {
       if (this.username !== '') {
-        this.username = '';
         this.logout();
       } else {
         $('#myModal').modal('show');
@@ -134,6 +147,7 @@ export default {
       });
     },
     logout() {
+      this.username = '';
       axois.post('/api/logout');
     },
     checkLogin() {

@@ -5,6 +5,12 @@ router.get('/', async (ctx, next) => {
   await ctx.render('index')
 })
 
+router.get('/test', async (ctx, next) => {
+  await ctx.render('../server/views/index.pug', {
+    title: '123'
+  })
+})
+
 router.get('/api/checkLogin', async (ctx, next) => {
   if (ctx.session.username) {
     ctx.body = {
@@ -54,7 +60,7 @@ router.get('/api/goods', async (ctx, next) => {
 
 router.get('/api/cart', async (ctx, next) => {
   if (ctx.session.username) {
-    let user = await User.findOne({username: ctx.session.username}).exec();
+    let user = await User.findOne({ username: ctx.session.username }).exec();
     ctx.body = {
       code: 1,
       msg: '获取成功',
@@ -71,7 +77,7 @@ router.get('/api/cart', async (ctx, next) => {
 router.post('/api/addCart', async (ctx, next) => {
   let productId = ctx.request.body.productId;
   if (ctx.session.username) {
-    let user = await User.findOne({username: ctx.session.username}).exec();
+    let user = await User.findOne({ username: ctx.session.username }).exec();
     let toAddProduct;
     let carts = user.cart;
     let products = require('../../mocker/goods.json').result;
@@ -115,10 +121,18 @@ router.post('/api/addCart', async (ctx, next) => {
 })
 
 router.post('/api/deleteCart', async (ctx, next) => {
-  let i = ctx.request.body.i;
+  let index = ctx.request.body.i;
+
   let username = ctx.session.username;
-  let user = await User.findOne({username}).exec();
-  user.cart.splice(i, 1);
+  let user = await User.findOne({ username }).exec();
+
+  if (index instanceof Array) {
+    for (let i = index.length - 1; i >= 0; i--) {
+      user.cart.splice(i, 1);
+    }
+  } else {
+    user.cart.splice(index, 1);
+  }
   await user.save();
   ctx.body = {
     code: 1,
@@ -131,7 +145,7 @@ router.post('/api/updateCartCount', async (ctx, next) => {
   let count = ctx.request.body.count;
   let username = ctx.session.username;
 
-  let user = await User.findOne({username}).exec();
+  let user = await User.findOne({ username }).exec();
 
   user.cart[i].count = count;
   await user.save();
@@ -139,6 +153,52 @@ router.post('/api/updateCartCount', async (ctx, next) => {
   ctx.body = {
     code: 1,
     msg: '更新成功'
+  }
+})
+
+router.get('/api/address', async (ctx, next) => {
+  let username = ctx.session.username;
+  if (username) {
+    let user = await User.findOne({ username }).exec();
+    let addressList = user.addressList;
+    ctx.body = {
+      code: 1,
+      msg: '获取成功',
+      data: addressList || []
+    }
+  } else {
+    ctx.body = {
+      code: 0,
+      msg: '未登陆'
+    }
+  }
+})
+
+router.post('/api/address/add', async (ctx, next) => {
+  let username = ctx.session.username;
+  if (username) {
+    let name = ctx.request.body.name;
+    let phone = ctx.request.body.phone;
+    let address = ctx.request.body.address;
+    let tag = ctx.request.body.tag;
+    let isDefault = ctx.request.body.isDefault;
+
+    let user = await User.findOne({ username }).exec();
+    if (!user.addressList) user.addressList = [];
+    user.addressList.push({
+      name, phone, address, tag, isDefault
+    })
+    await user.save();
+    // todo default 操作
+    ctx.body = {
+      code: 1,
+      msg: '操作成功'
+    }
+  } else {
+    ctx.body = {
+      code: 0,
+      msg: '未登陆'
+    }
   }
 })
 

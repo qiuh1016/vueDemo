@@ -25,12 +25,4 @@ class RedisStore extends Store {
     }
 }
 
-// (async () => {
-//   let redis = new Redis();
-//   let data = await redis.set('123', 'set123');
-//   console.log('data: ' + data);
-//   let setData = await redis.get('123');
-//   console.log('setData: ' + setData);
-// })();
-
 module.exports = RedisStore;

@@ -31,7 +31,7 @@
                 <h3>{{item.productName}}</h3>
                 <p>{{item.productPrice}}元</p>
                 <p>
-                  <a href="#" class="btn btn-warning" role="button"
+                  <a href="javascript:void(0);" class="btn btn-warning" role="button"
                   @click="addCart(item.productId)">加入购物车</a>
                 </p>
               </div>
@@ -90,11 +90,17 @@ export default {
         const res = result.data;
         if (res.code === 1) {
           // eslint-disable-next-line
-          alert('添加成功');
+          this.addCartTip();
         } else {
           // eslint-disable-next-line
           alert('未登陆');
         }
+      });
+    },
+    addCartTip() {
+      this.$message({
+        message: '成功添加到购物车',
+        type: 'success',
       });
     },
   },
