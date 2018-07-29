@@ -111,10 +111,19 @@ export default {
   name: 'NavHeader',
   data() {
     return {
-      username: '',
       psw: '',
       loginTip: '',
     };
+  },
+  computed: {
+    username: {
+      get() {
+        return this.$store.state.username;
+      },
+      set(value) {
+        this.$store.commit('updateUsername', value);
+      },
+    },
   },
   mounted() {
     this.checkLogin();
@@ -141,19 +150,22 @@ export default {
         if (res.code === 1) {
           $('#myModal').modal('hide');
           this.loginTip = '';
+          this.psw = '';
         } else {
           this.loginTip = res.msg;
         }
       });
     },
     logout() {
-      this.username = '';
-      axois.post('/api/logout');
+      axois.post('/api/logout').then(() => {
+        this.username = '';
+      });
     },
     checkLogin() {
       axois.get('/api/checkLogin').then((result) => {
         const res = result.data;
         if (res.code === 1) {
+          this.psw = '';
           this.username = res.username;
         }
       });

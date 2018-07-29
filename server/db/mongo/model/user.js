@@ -15,7 +15,8 @@ let UserShema = new mongoose.Schema({
     phone: String,
     address: String,
     tag: String,
-    isDefault: Boolean
+    isDefault: Boolean,
+    description: String
   }]
 })
 

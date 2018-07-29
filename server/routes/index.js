@@ -182,17 +182,19 @@ router.post('/api/address/add', async (ctx, next) => {
     let address = ctx.request.body.address;
     let tag = ctx.request.body.tag;
     let isDefault = ctx.request.body.isDefault;
+    let description = ctx.request.body.description;
+    console.log(name);
 
     let user = await User.findOne({ username }).exec();
     if (!user.addressList) user.addressList = [];
     user.addressList.push({
-      name, phone, address, tag, isDefault
+      name, phone, address, tag, isDefault, description
     })
     await user.save();
     // todo default 操作
     ctx.body = {
       code: 1,
-      msg: '操作成功'
+      msg: '地址添加成功'
     }
   } else {
     ctx.body = {
