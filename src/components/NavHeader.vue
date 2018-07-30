@@ -38,12 +38,12 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form> -->
         <ul class="nav navbar-nav navbar-right">
-          <li v-if="username !== ''">
+          <li v-if="hasLogin === true">
             <a href="#/cart">
               <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
             </a>
           </li>
-          <li class="dropdown" v-if="username !== ''">
+          <li class="dropdown" v-if="hasLogin === true">
             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"
             role="button" aria-haspopup="true" aria-expanded="false">
             {{username}}<span class="caret"></span>
@@ -113,6 +113,7 @@ export default {
     return {
       psw: '',
       loginTip: '',
+      hasLogin: false,
     };
   },
   computed: {
@@ -151,6 +152,7 @@ export default {
           $('#myModal').modal('hide');
           this.loginTip = '';
           this.psw = '';
+          this.hasLogin = true;
         } else {
           this.loginTip = res.msg;
         }
@@ -159,6 +161,7 @@ export default {
     logout() {
       axois.post('/api/logout').then(() => {
         this.username = '';
+        this.hasLogin = false;
       });
     },
     checkLogin() {
@@ -167,6 +170,7 @@ export default {
         if (res.code === 1) {
           this.psw = '';
           this.username = res.username;
+          this.hasLogin = true;
         }
       });
     },
